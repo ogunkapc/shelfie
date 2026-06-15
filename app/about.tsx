@@ -13,7 +13,7 @@ const About = () => {
                 <ThemedText>Back home</ThemedText>
             </Link>
         </ThemedView>
-    )
+    );
 }
 
 export default About

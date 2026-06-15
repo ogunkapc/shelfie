@@ -7,14 +7,20 @@ import Spacer from '../../components/Spacer'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
+import { useUser } from '../../hooks/useUser'
 
 const login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
-    const handleLogin = () => {
-        console.log('submitted', email, password);
-        console.log(`Login button pressed with credentials: ${email}, ${password}`); 
+    const { login } = useUser();
+
+    const handleLogin = async () => {
+        try {
+            await login(email, password);
+        } catch (error) {
+            console.error('Login failed: ', error);
+        }
     };
 
     return (
@@ -28,13 +34,13 @@ const login = () => {
                     style = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Enter your email address'
                     keyboardType = "email-address"
-                    onChangedText = {setEmail}
+                    onChangeText = {setEmail}
                     value={email}
                 />
                 <ThemedTextInput
                     style = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Password'
-                    onChangedText = {setPassword}
+                    onChangeText = {setPassword}
                     value={password}
                     secureTextEntry
                 />
