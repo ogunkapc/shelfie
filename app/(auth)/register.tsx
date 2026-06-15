@@ -7,53 +7,65 @@ import Spacer from '../../components/Spacer'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
+import { useUser } from '../../hooks/useUser'
 
-const login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+const register = () => {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-    const handleLogin = () => {
-        console.log('submitted', email, password);
-        console.log(`Login button pressed with credentials: ${email}, ${password}`); 
+    const { register } = useUser();
+
+    const handleRegister = async () => {
+        console.log('Register form submitted with credentials: ', email, password, confirmPassword);
+        try {
+            await register(email, password);
+        } catch (error) {
+            console.error('Registration failed: ', error);
+        }
     };
-
-    return (
+    
+    return ( 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ThemedView style={styles.container}>
                 <Spacer />
                 <ThemedText title={true} style={styles.title}>
-                    Login to your Account
+                    Create an account
                 </ThemedText>
                 <ThemedTextInput
                     style = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Enter your email address'
                     keyboardType = "email-address"
-                    onChangedText = {setEmail}
+                    onChangeText = {setEmail}
                     value={email}
                 />
                 <ThemedTextInput
                     style = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Password'
-                    onChangedText = {setPassword}
+                    onChangeText = {setPassword}
                     value={password}
                     secureTextEntry
                 />
-                <ThemedButton onPress={handleLogin}>
-                    <Text style={{color: "#f2f2f2"}}>Login</Text>
+                <ThemedTextInput
+                    style = {{width: "80%", marginBottom: 20}}
+                    placeholder = 'Confirm Password'
+                    onChangeText = {setConfirmPassword}
+                    value={confirmPassword}
+                    secureTextEntry
+                />
+                <ThemedButton onPress={handleRegister}>
+                    <Text style={{color: "#f2f2f2"}}>Register</Text>
                 </ThemedButton>
                 <Spacer height={100} />
-                <Link href='/register'>
-                    <ThemedText style={{ textAlign: 'center'}}>
-                        Don't have an account? Register
-                    </ThemedText>
+                <Link href='/login'>
+                    <ThemedText style={{ textAlign: 'center'}}>Already have an account? Login</ThemedText>
                 </Link>
-
             </ThemedView>
         </TouchableWithoutFeedback>
     );
 }
 
-export default login
+export default register
 
 const styles = StyleSheet.create({
     container: {

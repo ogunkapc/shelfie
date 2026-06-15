@@ -15,9 +15,6 @@ const Home = () => {
             <ThemedText title={true} style={styles.title}>Shelfie</ThemedText>
             <Spacer height={10}/>
 
-            <ThemedText>The #1 Reading List App</ThemedText>
-            <Spacer/>
-
             <Link href="/login" style={styles.link}>
                 <ThemedText>Login</ThemedText>
             </Link>
