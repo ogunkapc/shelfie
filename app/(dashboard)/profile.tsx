@@ -6,14 +6,14 @@ import ThemedText from '../../components/ThemedText';
 
 const profile = () => {
     return (
-         <ThemedView style={styles.container}>
-            <ThemedText title={true} style={styles.heading}>
-                Your Email
-            </ThemedText>
-            <Spacer />
+        <ThemedView style={styles.container}>
+        <ThemedText title={true} style={styles.heading}>
+            Your Email
+        </ThemedText>
+        <Spacer />
 
-            <ThemedText>Time to start reading some books...</ThemedText>
-         </ThemedView>
+        <ThemedText>Time to start reading some books...</ThemedText>
+        </ThemedView>
     );
 }
 
