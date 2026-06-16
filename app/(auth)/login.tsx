@@ -9,9 +9,10 @@ import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
 import { useUser } from '../../hooks/useUser'
 
-const login = () => {
+const Login = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const { login } = useUser();
 
@@ -31,18 +32,21 @@ const login = () => {
                     Login to your Account
                 </ThemedText>
                 <ThemedTextInput
-                    style = {{width: "80%", marginBottom: 20}}
+                    containerStyle = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Enter your email address'
                     keyboardType = "email-address"
                     onChangeText = {setEmail}
                     value={email}
+                    
                 />
                 <ThemedTextInput
-                    style = {{width: "80%", marginBottom: 20}}
+                    containerStyle = {{width: "80%", marginBottom: 20}}
                     placeholder = 'Password'
+                    secureTextEntry={!showPassword}
+                    iconName={showPassword ? "visibility" : "visibility-off"}
+                    onIconPress={() => setShowPassword(!showPassword)}
                     onChangeText = {setPassword}
                     value={password}
-                    secureTextEntry
                 />
                 <ThemedButton onPress={handleLogin}>
                     <Text style={{color: "#f2f2f2"}}>Login</Text>
@@ -59,7 +63,7 @@ const login = () => {
     );
 }
 
-export default login
+export default Login;
 
 const styles = StyleSheet.create({
     container: {

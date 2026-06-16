@@ -33,21 +33,21 @@ const register = () => {
                     Create an account
                 </ThemedText>
                 <ThemedTextInput
-                    style = {{width: "80%", marginBottom: 20}}
+                    containerStyle = {{width: "90%", marginBottom: 20}}
                     placeholder = 'Enter your email address'
                     keyboardType = "email-address"
                     onChangeText = {setEmail}
                     value={email}
                 />
                 <ThemedTextInput
-                    style = {{width: "80%", marginBottom: 20}}
+                    containerStyle = {{width: "90%", marginBottom: 20}}
                     placeholder = 'Password'
                     onChangeText = {setPassword}
                     value={password}
                     secureTextEntry
                 />
                 <ThemedTextInput
-                    style = {{width: "80%", marginBottom: 20}}
+                    containerStyle = {{width: "90%", marginBottom: 20}}
                     placeholder = 'Confirm Password'
                     onChangeText = {setConfirmPassword}
                     value={confirmPassword}
