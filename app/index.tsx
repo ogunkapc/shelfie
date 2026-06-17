@@ -15,13 +15,13 @@ const Home = () => {
             <ThemedText title={true} style={styles.title}>Shelfie</ThemedText>
             <Spacer height={10}/>
 
-            <Link href="/login" style={styles.link}>
+            <Link href="/Login" style={styles.link}>
                 <ThemedText>Login</ThemedText>
             </Link>
-            <Link href="/register" style={styles.link}>
+            <Link href="/Register" style={styles.link}>
                 <ThemedText>Sign Up</ThemedText>
             </Link> 
-            <Link href="/profile" style={styles.link}>
+            <Link href="/Profile" style={styles.link}>
                 <ThemedText>Profile</ThemedText>
             </Link> 
         </ThemedView>

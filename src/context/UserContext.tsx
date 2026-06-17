@@ -26,8 +26,8 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
         try {
             await account.create(ID.unique(), email, password);
             await login(email, password);
-        } catch (error) {
-            console.log("Error registering user:", error);
+        } catch (error: any) {
+            throw Error(error.message);
         } finally {
             setLoading(false);
         }
@@ -39,8 +39,8 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
             await account.createEmailPasswordSession(email, password);
             const response = await account.get();
             setUser(response);
-        } catch (error) {
-            console.log("Error logging in user:", error);
+        } catch (error: any) {
+            throw Error(error.message);
         } finally {
             setLoading(false);
         }

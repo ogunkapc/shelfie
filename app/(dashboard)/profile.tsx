@@ -4,7 +4,7 @@ import Spacer from '../../components/Spacer';
 import ThemedView from '../../components/ThemedView';
 import ThemedText from '../../components/ThemedText';
 
-const profile = () => {
+const Profile = () => {
     return (
         <ThemedView style={styles.container}>
         <ThemedText title={true} style={styles.heading}>
@@ -17,7 +17,7 @@ const profile = () => {
     );
 }
 
-export default profile
+export default Profile
 
 const styles = StyleSheet.create({
     container: {

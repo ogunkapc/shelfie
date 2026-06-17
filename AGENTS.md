@@ -1,60 +1,52 @@
-# Expo 54 — always check latest docs
+# Shelfie App Agent Guide
 
-Read https://docs.expo.dev/versions/v54.0.0/ before writing code.
+Read Expo SDK 54 docs before implementation work:
+<https://docs.expo.dev/versions/v54.0.0/>
 
-## Commands
+## Fast Start
 
 - `npx expo start` — dev server (or `npm start` as alias)
 - `npx expo start --ios` / `npx expo start --android` / `npx expo start --web`
 
 No lint, typecheck, or test scripts exist.
 
-## Architecture
+## Stack and Entry
 
-- **Expo Router** (file-based routing) — entry is `expo-router/entry` (set in `package.json:main`).
-- **React 19.2**, **React Native 0.81.5**, **Expo 54**, **New Arch** enabled.
-- **Appwrite** backend via `react-native-appwrite` — client configured in `lib/appwrite.js` (project `6a0df22c000d5420caa2`, platform `com.shelfie.app`).
-- Deep link scheme: `shelfieapp://`.
+- Expo Router app, entrypoint is `expo-router/entry` (`package.json` -> `main`).
+- Expo 54, React Native 0.81.5, React 19.
+- Deep link scheme in `app.json`: `shelfieapp://`.
 
-### Routing structure
+## Routing Structure
 
-```
-app/
-  _layout.jsx           — root Stack layout (headerShown: false on group screens)
-  index.jsx             — home screen with links to /login, /register, /profile
-  about.jsx
-  contact.jsx
-  (auth)/
-    _layout.jsx         — Stack (headerShown: false, animation: "none")
-    login.jsx
-    register.jsx
-  (dashboard)/
-    _layout.jsx         — Tabs layout (Profile, Books, Create)
-    profile.jsx
-    books.jsx
-    create.jsx
-```
+Use file-based routes under `app/`:
 
-### Components (`components/`)
+- `app/_layout.tsx`: root stack and global providers.
+- `app/(auth)/`: auth flow (`login.tsx`, `register.tsx`).
+- `app/(dashboard)/`: tab flow (`profile.tsx`, `books.tsx`, `create.tsx`).
+- `app/index.tsx`, `app/about.tsx`, `app/contact.tsx`: public screens.
 
-All JSX, no TypeScript. Themed components accept `useColorScheme` values from `Colors` in `constants/colors.js`:
+When adding screens, preserve group boundaries (`(auth)`, `(dashboard)`) and layout ownership.
 
-| Component | Props | Notes |
-|---|---|---|
-| `ThemedView` | `style`, `safe` (boolean) | `safe=true` applies safe-area insets |
-| `ThemedText` | `style`, `title` (boolean) | `title=true` uses `theme.title` color |
-| `ThemedButton` | `style` + Pressable props | Uses `Colors.primary` background |
-| `ThemedCard` | `...props` | **Bug**: destructured incorrectly — `(style, ...props)` instead of `({style, ...props})` |
-| `ThemedLogo` | Image props | Switches logo based on color scheme |
-| `Spacer` | `width` (default `"100%"`), `height` (default `40`) | Empty View spacer |
+## State and Backend
 
-### Backend
+- User state is managed by `src/context/UserContext.tsx` and consumed via `hooks/useUser.tsx`.
+- Appwrite client is in `src/appwrite.ts`.
+- Appwrite endpoint is currently commented out; project and platform are set in code.
 
-- `lib/appwrite.js` — exports `account` and `avatars` from Appwrite client.
-- Endpoint is commented out (`https://fra.cloud.appwrite.io/v1`); only project ID and platform are set.
+## UI and Styling Conventions
 
-### Styling conventions
+- This repo is mostly TypeScript (`.ts`/`.tsx`) with a small amount of legacy JSX in `components/`.
+- Theme values come from `constants/colors.ts` through `src/theme/useTheme.ts`.
+- Prefer existing themed primitives (`ThemedView`, `ThemedText`, `ThemedButton`, `ThemedTextInput`) before introducing new base wrappers.
+- Keep styles colocated and defined via `StyleSheet.create`.
 
-- `Colors.primary` (#6849a7) and `Colors.warning` (#cc475a) are static; dark/light keys are nested.
-- All files use JSX, `.jsx` extension, no TypeScript.
-- `StyleSheet.create()` at bottom of file.
+## Known Pitfalls
+
+- `components/ThemedCard.jsx` has a prop destructuring bug (`(style, ...props)`); do not copy that pattern.
+- Existing docs may mention `lib/appwrite.js`; the active file is `src/appwrite.ts`.
+
+## Agent Working Rules
+
+- Keep changes minimal and scoped; avoid broad refactors unless requested.
+- Match nearby file conventions (naming, hooks usage, style organization).
+- Prefer editing existing themed components/screens over duplicating UI patterns.
