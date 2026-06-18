@@ -4,7 +4,7 @@ import ThemedView from '../../components/ThemedView'
 import ThemedText from '../../components/ThemedText'
 
 
-const books = () => {
+const Books = () => {
   return (
     <ThemedView style={styles.container} safe = {true}>
         <ThemedText title={true} style={styles.heading}>
@@ -14,7 +14,7 @@ const books = () => {
   );
 }
 
-export default books
+export default Books
 
 const styles = StyleSheet.create({
   container: {

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import ThemedView from '../../components/ThemedView'
 import ThemedText from '../../components/ThemedText'
 
-const create = () => {
+const Create = () => {
   return (
     <ThemedView style={styles.container}>
         <ThemedText title={true} style={styles.heading}>
@@ -13,7 +13,7 @@ const create = () => {
   );
 }
 
-export default create
+export default Create
 
 const styles = StyleSheet.create({
   container: {

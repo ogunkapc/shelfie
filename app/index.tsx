@@ -12,18 +12,17 @@ const Home = () => {
             <ThemedLogo />
             <Spacer height={20}/>
 
-            <ThemedText title={true} style={styles.title}>Shelfie</ThemedText>
-            <Spacer height={10}/>
-
-            <Link href="/Login" style={styles.link}>
-                <ThemedText>Login</ThemedText>
-            </Link>
-            <Link href="/Register" style={styles.link}>
-                <ThemedText>Sign Up</ThemedText>
-            </Link> 
-            <Link href="/Profile" style={styles.link}>
-                <ThemedText>Profile</ThemedText>
-            </Link> 
+            <ThemedView style={styles.linkContainer}>
+                <Link href="/Login" style={styles.link}>
+                    <ThemedText>Login</ThemedText>
+                </Link>
+                <Link href="/Register" style={styles.link}>
+                    <ThemedText>Sign Up</ThemedText>
+                </Link> 
+                <Link href="/Profile" style={styles.link}>
+                    <ThemedText>Profile</ThemedText>
+                </Link>
+                </ThemedView>
         </ThemedView>
     )
 }
@@ -50,7 +49,12 @@ const styles = StyleSheet.create({
         boxShadow: "4px 4px rgba(0,0,0,0.1)",
     },
     link: {
-        marginVertical: 10,
         borderBottomWidth: 1,
+    },
+    linkContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "60%",
+
     }
 })
