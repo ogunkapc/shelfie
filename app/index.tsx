@@ -5,25 +5,28 @@ import ThemedView from '../components/ThemedView'
 import ThemedLogo from '../components/ThemedLogo'
 import ThemedText from '../components/ThemedText'
 import Spacer from '../components/Spacer'
+import GuestOnly from '../components/auth/GuestOnly'
 
 const Home = () => {
     return (
-        <ThemedView style={styles.container}>
-            <ThemedLogo />
-            <Spacer height={20}/>
+        <GuestOnly>
+            <ThemedView style={styles.container}>
+                <ThemedLogo />
+                <Spacer height={20}/>
 
-            <ThemedView style={styles.linkContainer}>
-                <Link href="/Login" style={styles.link}>
-                    <ThemedText>Login</ThemedText>
-                </Link>
-                <Link href="/Register" style={styles.link}>
-                    <ThemedText>Sign Up</ThemedText>
-                </Link> 
-                <Link href="/Profile" style={styles.link}>
-                    <ThemedText>Profile</ThemedText>
-                </Link>
-                </ThemedView>
-        </ThemedView>
+                <ThemedView style={styles.linkContainer}>
+                    <Link href="/Login" style={styles.link}>
+                        <ThemedText>Login</ThemedText>
+                    </Link>
+                    <Link href="/Register" style={styles.link}>
+                        <ThemedText>Sign Up</ThemedText>
+                    </Link> 
+                    <Link href="/Profile" style={styles.link}>
+                        <ThemedText>Profile</ThemedText>
+                    </Link>
+                    </ThemedView>
+            </ThemedView>
+        </GuestOnly>
     )
 }
 

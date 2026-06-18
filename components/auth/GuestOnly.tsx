@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useUser } from "../../hooks/useUser";
 import { useEffect } from "react";
 import { Text } from "react-native";
+import ThemedLoadingScreen from "../ThemedLoadingScreen";
 
 const GuestOnly = ({ children }: { children: React.ReactNode }) => {
     const { user, authChecked } = useUser();
@@ -18,7 +19,7 @@ const GuestOnly = ({ children }: { children: React.ReactNode }) => {
 
     // If the authentication check is not complete or the user is authenticated, show a loading message
     if (!authChecked || user) {
-        return <Text>Loading...</Text>;
+        return <ThemedLoadingScreen />;
     }
 
     return children;

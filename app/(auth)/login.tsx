@@ -1,14 +1,15 @@
-import { ActivityIndicator, Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import { Link } from 'expo-router'
 import { useState } from 'react'
+import { useUser } from '../../hooks/useUser'
 
 import ThemedView from '../../components/ThemedView'
 import Spacer from '../../components/Spacer'
 import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput'
-import { useUser } from '../../hooks/useUser'
 import { Colors } from '../../constants/colors'
+import ThemedLoader from '../../components/ThemedLoader'
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -54,7 +55,7 @@ const Login = () => {
                 <ThemedButton onPress={handleLogin} >
                     {loading
                         ? (
-                            <ActivityIndicator />
+                            <ThemedLoader />
                         ) : (
                             <Text style={{ color: "#f2f2f2" }}>Login</Text>
                         )}
