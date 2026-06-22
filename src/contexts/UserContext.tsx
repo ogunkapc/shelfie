@@ -23,6 +23,7 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
     const [loading, setLoading] = useState(false);
     const [authChecked, setAuthChecked] = useState(false);
 
+    //! Register a new user with email and password
     async function register(email: string, password: string) {
         setLoading(true);
         try {
@@ -35,6 +36,7 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
         }
     }
 
+    //! Login user with email and password
     async function login(email: string, password: string) {
         setLoading(true);
         try {
@@ -48,6 +50,7 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
         }
     }
 
+    //! Logout the current user
     async function logout() {
         setLoading(true);
         try {
@@ -60,6 +63,7 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
         }
     }
 
+    //! Check if there's an active session on app load by getting the current user and set the user accordingly
     async function getInitialUser() {
         setLoading(true);
         try {
@@ -73,6 +77,7 @@ export function UserProvider( {children} : { children: React.ReactNode} ) {
         }
     }
 
+    // On app load, check for an active session and set the user
     useEffect(() => {
         getInitialUser();
     }, []);
