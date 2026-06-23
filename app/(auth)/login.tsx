@@ -1,15 +1,15 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import { Link } from 'expo-router'
 import { useState } from 'react'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 import { useUser } from '../../hooks/useUser'
 
-import ThemedView from '../../components/ThemedView'
 import Spacer from '../../components/Spacer'
-import ThemedText from '../../components/ThemedText'
 import ThemedButton from '../../components/ThemedButton'
-import ThemedTextInput from '../../components/ThemedTextInput'
-import { Colors } from '../../constants/colors'
 import ThemedLoader from '../../components/ThemedLoader'
+import ThemedText from '../../components/ThemedText'
+import ThemedTextInput from '../../components/ThemedTextInput'
+import ThemedView from '../../components/ThemedView'
+import { Colors } from '../../constants/colors'
 
 const Login = () => {
     const [email, setEmail] = useState<string>("");
@@ -36,19 +36,19 @@ const Login = () => {
                     Login to your Account
                 </ThemedText>
                 <ThemedTextInput
-                    containerStyle = {{width: "80%", marginBottom: 20}}
-                    placeholder = 'Enter your email address'
-                    keyboardType = "email-address"
-                    onChangeText = {setEmail}
+                    containerStyle={{ width: "80%", marginBottom: 20 }}
+                    placeholder='Enter your email address'
+                    keyboardType="email-address"
+                    onChangeText={setEmail}
                     value={email}
                 />
                 <ThemedTextInput
-                    containerStyle = {{width: "80%", marginBottom: 20}}
-                    placeholder = 'Password'
+                    containerStyle={{ width: "80%", marginBottom: 20 }}
+                    placeholder='Password'
                     secureTextEntry={!showPassword}
                     iconName={showPassword ? "visibility" : "visibility-off"}
                     onIconPress={() => setShowPassword(!showPassword)}
-                    onChangeText = {setPassword}
+                    onChangeText={setPassword}
                     value={password}
                 />
 
@@ -68,7 +68,7 @@ const Login = () => {
 
                 <Spacer height={100} />
                 <Link href='/Register'>
-                    <ThemedText style={{ textAlign: 'center'}}>
+                    <ThemedText style={{ textAlign: 'center' }}>
                         Don't have an account? Register
                     </ThemedText>
                 </Link>

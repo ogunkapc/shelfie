@@ -1,14 +1,14 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useBooks } from '../../hooks/useBooks';
-import { useRouter } from 'expo-router';
 
-import ThemedView from '../../components/ThemedView'
-import ThemedText from '../../components/ThemedText';
 import Spacer from '../../components/Spacer';
-import ThemedTextInput from '../../components/ThemedTextInput';
 import ThemedButton from '../../components/ThemedButton';
+import ThemedText from '../../components/ThemedText';
+import ThemedTextInput from '../../components/ThemedTextInput';
+import ThemedView from '../../components/ThemedView';
 
 const Create = () => {
   const [title, setTitle] = useState<string>("");
@@ -25,7 +25,7 @@ const Create = () => {
       return;
     }
 
-    await createBook({ title, author, description})
+    await createBook({ title, author, description })
       .then(() => {
         alert("Book created successfully!");
         router.replace("/Books");
@@ -39,7 +39,7 @@ const Create = () => {
         setDescription("");
       });
   };
-  
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ThemedView style={styles.container}>
@@ -47,24 +47,24 @@ const Create = () => {
           Add a New Book
         </ThemedText>
         <Spacer />
-        <ThemedTextInput 
+        <ThemedTextInput
           inputStyle={styles.input}
           placeholder="Book Title"
           value={title}
           onChangeText={setTitle}
         />
         <Spacer />
-        <ThemedTextInput 
+        <ThemedTextInput
           inputStyle={styles.input}
-          placeholder="Author" 
-          value={author} 
+          placeholder="Author"
+          value={author}
           onChangeText={setAuthor}
         />
         <Spacer />
-        <ThemedTextInput 
-          inputStyle={styles.multilineInput} 
-          placeholder="Description" 
-          value={description} 
+        <ThemedTextInput
+          inputStyle={styles.multilineInput}
+          placeholder="Description"
+          value={description}
           onChangeText={setDescription}
           multiline={true}
         />

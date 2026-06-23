@@ -3,12 +3,12 @@ import ThemedLoader from "./ThemedLoader";
 
 const ThemedLoadingScreen = () => {
     return (
-        <View style={{ 
+        <View style={{
             flex: 1,
             justifyContent: "center",
-            alignItems: "center" 
+            alignItems: "center"
         }}>
-            <ThemedLoader size = "large"/>
+            <ThemedLoader size="large" />
         </View>
     );
 }

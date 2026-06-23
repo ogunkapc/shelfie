@@ -1,13 +1,13 @@
-import { FlatList, Pressable, RefreshControl, StyleSheet, TouchableOpacity } from 'react-native'
+import { FlatList, Pressable, RefreshControl, StyleSheet } from 'react-native'
 
-import ThemedView from '../../components/ThemedView'
-import ThemedText from '../../components/ThemedText'
-import { useBooks } from '../../hooks/useBooks'
 import { useRouter } from 'expo-router'
 import Spacer from '../../components/Spacer'
 import ThemedCard from '../../components/ThemedCard'
-import { Colors } from '../../constants/colors'
 import ThemedLoadingScreen from '../../components/ThemedLoadingScreen'
+import ThemedText from '../../components/ThemedText'
+import ThemedView from '../../components/ThemedView'
+import { Colors } from '../../constants/colors'
+import { useBooks } from '../../hooks/useBooks'
 
 
 const Books = () => {
@@ -18,35 +18,35 @@ const Books = () => {
   const onRefresh = () => {
     fetchBooks();
   };
-  
+
   return (
-    <ThemedView style={styles.container} safe = {true}>
-        <ThemedText title={true} style={styles.heading}>
-            Your Reading List 
-        </ThemedText>
-        <Spacer />
-        {loading ? (
-            <ThemedLoadingScreen />
-        ) : (
-            <FlatList
-              data={books}
-              keyExtractor={(item) => item.$id}
-              renderItem={({item}) => (
-                <Pressable>
-                  <ThemedCard style={styles.card}>
-                    <ThemedText style={styles.title}>{item.title}</ThemedText>
-                    <ThemedText>Written by {item.author}</ThemedText>
-                  </ThemedCard>
-                </Pressable>
-              )}
-              refreshControl={
-                <RefreshControl
-                  refreshing={loading}
-                  onRefresh={onRefresh}
-                />
-              }
+    <ThemedView style={styles.container} safe={true}>
+      <ThemedText title={true} style={styles.heading}>
+        Your Reading List
+      </ThemedText>
+      <Spacer />
+      {loading ? (
+        <ThemedLoadingScreen />
+      ) : (
+        <FlatList
+          data={books}
+          keyExtractor={(item) => item.$id}
+          renderItem={({ item }) => (
+            <Pressable>
+              <ThemedCard style={styles.card}>
+                <ThemedText style={styles.title}>{item.title}</ThemedText>
+                <ThemedText>Written by {item.author}</ThemedText>
+              </ThemedCard>
+            </Pressable>
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={onRefresh}
             />
-        )}
+          }
+        />
+      )}
     </ThemedView>
   );
 }
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     borderLeftColor: Colors.primary,
   },
-  title: { 
+  title: {
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
   }
-  
+
 });

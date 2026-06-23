@@ -1,6 +1,6 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { StyleProp, StyleSheet, TextInput, TextInputProps, TextStyle, View, ViewStyle } from 'react-native';
 import { useTheme } from '../src/theme/useTheme';
-import { MaterialIcons } from '@expo/vector-icons';
 
 type IconName = React.ComponentProps<typeof MaterialIcons>["name"];
 
@@ -11,13 +11,13 @@ interface ThemedTextInputProps extends TextInputProps {
     onIconPress?: () => void; // Optional prop for icon press event
 }
 
-const ThemedTextInput = ({ 
+const ThemedTextInput = ({
     containerStyle,
-    inputStyle, 
+    inputStyle,
     iconName,
     onIconPress,
-    ...props 
-} : ThemedTextInputProps) => {
+    ...props
+}: ThemedTextInputProps) => {
     const theme = useTheme();
 
     return (
@@ -34,10 +34,10 @@ const ThemedTextInput = ({
             {iconName && (
                 <MaterialIcons
                     name={iconName}
-                    size={24} 
-                    color="gray" 
+                    size={24}
+                    color="gray"
                     style={styles.icon}
-                    onPress={onIconPress}  
+                    onPress={onIconPress}
                 />
             )}
         </View>

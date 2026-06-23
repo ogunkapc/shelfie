@@ -8,7 +8,7 @@ interface ThemedViewProps {
     children: React.ReactNode;
 }
 
-const ThemedView = ({ style, safe = false, children, ...props } : ThemedViewProps) => {
+const ThemedView = ({ style, safe = false, children, ...props }: ThemedViewProps) => {
     const theme = useTheme();
     const insets = useSafeAreaInsets();
 

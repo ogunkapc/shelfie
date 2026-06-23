@@ -1,4 +1,4 @@
-import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { useTheme } from '../src/theme/useTheme';
 
 interface ThemedCardProps {

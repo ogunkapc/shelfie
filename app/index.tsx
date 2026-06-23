@@ -1,10 +1,10 @@
-import { StyleSheet} from 'react-native'
 import { Link } from "expo-router"
+import { StyleSheet } from 'react-native'
 
-import ThemedView from '../components/ThemedView'
+import Spacer from '../components/Spacer'
 import ThemedLogo from '../components/ThemedLogo'
 import ThemedText from '../components/ThemedText'
-import Spacer from '../components/Spacer'
+import ThemedView from '../components/ThemedView'
 import GuestOnly from '../components/auth/GuestOnly'
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
         <GuestOnly>
             <ThemedView style={styles.container}>
                 <ThemedLogo />
-                <Spacer height={20}/>
+                <Spacer height={20} />
 
                 <ThemedView style={styles.linkContainer}>
                     <Link href="/Login" style={styles.link}>
@@ -20,11 +20,11 @@ const Home = () => {
                     </Link>
                     <Link href="/Register" style={styles.link}>
                         <ThemedText>Sign Up</ThemedText>
-                    </Link> 
+                    </Link>
                     <Link href="/Profile" style={styles.link}>
                         <ThemedText>Profile</ThemedText>
                     </Link>
-                    </ThemedView>
+                </ThemedView>
             </ThemedView>
         </GuestOnly>
     )

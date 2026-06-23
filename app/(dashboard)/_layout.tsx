@@ -1,13 +1,13 @@
-import { Tabs } from "expo-router";
-import { useTheme } from "../../src/theme/useTheme";
 import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 import React from "react";
 import UserOnly from "../../components/auth/UserOnly";
+import { useTheme } from "../../src/theme/useTheme";
 
 
 export default function DashboardLayout() {
     const theme = useTheme();
-    
+
     return (
         <UserOnly>
             <Tabs

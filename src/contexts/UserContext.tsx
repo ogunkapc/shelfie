@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { account } from "../appwrite";
 import { ID } from "react-native-appwrite";
+import { account } from "../appwrite";
 
 type User = {
     $id: string;
@@ -18,7 +18,7 @@ type UserContextType = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
-export function UserProvider( {children} : { children: React.ReactNode} ) {
+export function UserProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User>(null);
     const [loading, setLoading] = useState(false);
     const [authChecked, setAuthChecked] = useState(false);

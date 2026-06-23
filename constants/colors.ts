@@ -1,7 +1,7 @@
 export const Colors = {
   primary: "#6849a7",
   warning: "#cc475a",
-  
+
   dark: {
     text: "#d4d4d4",
     title: "#fff",
@@ -20,4 +20,4 @@ export const Colors = {
     iconColorFocused: "#201e2b",
     uiBackground: "#d6d5e1",
   },
-}
+};

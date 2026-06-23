@@ -1,10 +1,10 @@
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native';
 import { useUser } from '../../hooks/useUser';
 
 import Spacer from '../../components/Spacer';
-import ThemedView from '../../components/ThemedView';
-import ThemedText from '../../components/ThemedText';
 import ThemedButton from '../../components/ThemedButton';
+import ThemedText from '../../components/ThemedText';
+import ThemedView from '../../components/ThemedView';
 
 const Profile = () => {
     const { user, logout } = useUser();

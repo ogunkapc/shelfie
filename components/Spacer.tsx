@@ -1,4 +1,4 @@
-import { StyleProp, View, ViewStyle } from 'react-native'
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 interface SpacerProps {
     width?: ViewStyle['width'];
@@ -6,10 +6,10 @@ interface SpacerProps {
     style?: StyleProp<ViewStyle>;
 }
 
-const Spacer = ({ width = "100%", height = 40, style } : SpacerProps) => {
+const Spacer = ({ width = "100%", height = 40, style }: SpacerProps) => {
     return (
         <View style={[{ width, height }, style]} />
     );
-} 
+}
 
 export default Spacer

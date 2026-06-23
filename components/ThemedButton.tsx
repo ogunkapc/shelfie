@@ -1,15 +1,15 @@
-import { Pressable, StyleSheet, PressableProps, ViewStyle, StyleProp } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { Colors } from '../constants/colors';
 
 interface ThemedButtonProps extends PressableProps {
     style?: StyleProp<ViewStyle>;
 }
 
-function ThemedButton({style, ...props} : ThemedButtonProps) {
+function ThemedButton({ style, ...props }: ThemedButtonProps) {
     return (
         <Pressable
-            style={({pressed}) => [styles.button, pressed && styles.buttonPressed, style]}
+            style={({ pressed }) => [styles.button, pressed && styles.buttonPressed, style]}
             {...props}
         />
     );

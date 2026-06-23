@@ -3,8 +3,8 @@ import { ID, Permission, Query, Role } from "react-native-appwrite";
 
 import { useUser } from "../../hooks/useUser";
 
-import { databases } from "../appwrite";
 import { BOOKS_TABLE_ID, DATABASE_ID } from "../../constants/constants";
+import { client, databases } from "../appwrite";
 import { Book, CreateBookPayload } from "../models/books";
 
 type BooksContextType = {
@@ -18,10 +18,10 @@ type BooksContextType = {
 
 export const BooksContext = createContext<BooksContextType | null>(null);
 
-export function BooksProvider({ children } : { children: React.ReactNode}) {
+export function BooksProvider({ children }: { children: React.ReactNode }) {
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(false);
-    const { user} = useUser();
+    const { user } = useUser();
 
     //! Fetch all books from the database
     async function fetchBooks() {
@@ -38,7 +38,6 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
                 ]
             );
             setBooks(response.documents);
-            console.log(`Fetched ${response.documents.length} books for user ${user?.$id}`);
         } catch (error: any) {
             throw Error(error.message);
         } finally {
@@ -50,8 +49,8 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
     async function fetchBookById(bookId: string) {
         setLoading(true);
         try {
-            
-        } catch (error: any) { 
+
+        } catch (error: any) {
             throw Error(error.message);
         } finally {
             setLoading(false);
@@ -70,7 +69,7 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
                 DATABASE_ID,
                 BOOKS_TABLE_ID,
                 ID.unique(),
-                {...data, userId: user.$id},
+                { ...data, userId: user.$id },
                 [
                     Permission.read(Role.user(user.$id)),
                     Permission.update(Role.user(user.$id)),
@@ -88,7 +87,7 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
     async function deleteBook(bookId: string) {
         setLoading(true);
         try {
-            
+
         } catch (error: any) {
             throw Error(error.message);
         } finally {
@@ -96,12 +95,28 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
         }
     }
 
-    // On app load, fetch the books for the authenticated user
+
     useEffect(() => {
+        let onSubscribe: any;
+        const channel = `databases.${DATABASE_ID}.collections.${BOOKS_TABLE_ID}.documents`;
+
         if (user) {
+            // Subscribe to real-time updates for the user's books
+            onSubscribe = client.subscribe(
+                channel, (response) => {
+                    const { payload, events } = response;
+                    if (events[0].includes("create")) {
+                        setBooks((previousBooks) => [...previousBooks, payload as Book]);
+                    }
+                }
+            );
             fetchBooks();
         } else {
             setBooks([]);
+        }
+
+        return () => {
+            if (onSubscribe) onSubscribe();
         }
     }, [user]);
 

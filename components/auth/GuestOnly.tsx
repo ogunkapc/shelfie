@@ -1,21 +1,20 @@
 import { useRouter } from "expo-router";
-import { useUser } from "../../hooks/useUser";
 import { useEffect } from "react";
-import { Text } from "react-native";
+import { useUser } from "../../hooks/useUser";
 import ThemedLoadingScreen from "../ThemedLoadingScreen";
 
 const GuestOnly = ({ children }: { children: React.ReactNode }) => {
     const { user, authChecked } = useUser();
     const router = useRouter();
 
-    useEffect (() => {
+    useEffect(() => {
         // If the authentication check is complete and the user is not null, redirect to the Profile page
         if (authChecked && user !== null) {
             router.replace("/Profile");
         }
-    }, 
-    // Tells the app to re-run the functions in this hook when the user or authChecked state changes
-    [user, authChecked]);
+    },
+        // Tells the app to re-run the functions in this hook when the user or authChecked state changes
+        [user, authChecked]);
 
     // If the authentication check is not complete or the user is authenticated, show a loading message
     if (!authChecked || user) {

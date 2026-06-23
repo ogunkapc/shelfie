@@ -1,8 +1,8 @@
 import { Account, Avatars, Client, Databases } from "react-native-appwrite";
 
 
-const client = new Client()
-    // .setEndpoint("https://fra.cloud.appwrite.io/v1")
+export const client = new Client()
+    .setEndpoint("https://fra.cloud.appwrite.io/v1")
     .setProject("6a0df22c000d5420caa2")
     .setPlatform("com.shelfie.app");
 
