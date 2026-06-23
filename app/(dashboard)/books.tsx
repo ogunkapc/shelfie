@@ -32,9 +32,9 @@ const Books = () => {
           data={books}
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => (
-            <Pressable>
+            <Pressable onPress={() => router.push(`/books/${item.$id}`)}>
               <ThemedCard style={styles.card}>
-                <ThemedText style={styles.title}>{item.title}</ThemedText>
+                <ThemedText style={styles.bookTitle}>{item.title}</ThemedText>
                 <ThemedText>Written by {item.author}</ThemedText>
               </ThemedCard>
             </Pressable>
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   heading: {
     fontWeight: 'bold',
     fontSize: 18,
+    textAlign: "center",
+    marginTop: 10,
   },
   card: {
     width: "90%",
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 4,
     borderLeftColor: Colors.primary,
   },
-  title: {
+  bookTitle: {
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 10,
