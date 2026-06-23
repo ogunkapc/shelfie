@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { ID, Permission, Query, Role } from "react-native-appwrite";
 
 import { useUser } from "../../hooks/useUser";
@@ -38,6 +38,7 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
                 ]
             );
             setBooks(response.documents);
+            console.log(`Fetched ${response.documents.length} books for user ${user?.$id}`);
         } catch (error: any) {
             throw Error(error.message);
         } finally {
@@ -75,7 +76,7 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
                     Permission.update(Role.user(user.$id)),
                     Permission.delete(Role.user(user.$id)),
                 ]
-            )
+            );
         } catch (error: any) {
             throw Error(error.message);
         } finally {
@@ -94,6 +95,15 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
             setLoading(false);
         }
     }
+
+    // On app load, fetch the books for the authenticated user
+    useEffect(() => {
+        if (user) {
+            fetchBooks();
+        } else {
+            setBooks([]);
+        }
+    }, [user]);
 
     return (
         <BooksContext.Provider value={{ books, loading, fetchBooks, fetchBookById, createBook, deleteBook }}>
