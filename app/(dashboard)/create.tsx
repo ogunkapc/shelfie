@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native'
 
 import { useState } from 'react';
 import { useBooks } from '../../hooks/useBooks';
@@ -14,9 +14,8 @@ const Create = () => {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const { createBook } = useBooks();
+  const { createBook, loading } = useBooks();
   const router = useRouter();
 
   const handleSubmit = async () => {
@@ -26,7 +25,6 @@ const Create = () => {
       return;
     }
 
-    setLoading(true);
     await createBook({ title, author, description})
       .then(() => {
         alert("Book created successfully!");
@@ -36,14 +34,10 @@ const Create = () => {
         alert(`Failed to create book: ${error.message}`);
       })
       .finally(() => {
-        setLoading(false);
         setTitle("");
         setAuthor("");
-        setDescription(""); 
+        setDescription("");
       });
-
-    
-
   };
   
   return (
