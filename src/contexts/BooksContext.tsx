@@ -1,22 +1,18 @@
 import { createContext, useState } from "react";
-import { databases } from "../appwrite";
-import { BOOKS_TABLE_ID, DATABASE_ID } from "../../constants/constants";
-import { ID, Permission, Role } from "react-native-appwrite";
+import { ID, Permission, Query, Role } from "react-native-appwrite";
+
 import { useUser } from "../../hooks/useUser";
 
-type Book = {
-    $id: string;
-    title: string;
-    author: string;
-    description: string;
-} | null;
+import { databases } from "../appwrite";
+import { BOOKS_TABLE_ID, DATABASE_ID } from "../../constants/constants";
+import { Book, CreateBookPayload } from "../models/books";
 
 type BooksContextType = {
     books: Book[];
     loading: boolean;
     fetchBooks: () => Promise<void>;
     fetchBookById: (bookId: string) => Promise<void>;
-    createBook: (data: object) => Promise<void>;
+    createBook: (data: CreateBookPayload) => Promise<void>;
     deleteBook: (bookId: string) => Promise<void>;
 }
 
@@ -29,9 +25,19 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
 
     //! Fetch all books from the database
     async function fetchBooks() {
+        if (!user?.$id) {
+            throw new Error("User must be authenticated to fetch books.");
+        };
         setLoading(true);
         try {
-            
+            const response = await databases.listDocuments<Book>(
+                DATABASE_ID,
+                BOOKS_TABLE_ID,
+                [
+                    Query.equal("userId", user?.$id || "")
+                ]
+            );
+            setBooks(response.documents);
         } catch (error: any) {
             throw Error(error.message);
         } finally {
@@ -52,18 +58,22 @@ export function BooksProvider({ children } : { children: React.ReactNode}) {
     }
 
     //! Create a new book in the database
-    async function createBook(data: object) {
+    async function createBook(data: CreateBookPayload) {
+        // If user id is not available, we cannot create a book
+        if (!user?.$id) {
+            throw new Error("User must be authenticated to create a book.");
+        }
         setLoading(true);
         try {
-            const newBook = await databases.createDocument(
+            const newBook = await databases.createDocument<Book>(
                 DATABASE_ID,
                 BOOKS_TABLE_ID,
                 ID.unique(),
-                {...data, userId: user?.$id},
+                {...data, userId: user.$id},
                 [
-                    Permission.read(Role.user(user?.$id || "")),
-                    Permission.update(Role.user(user?.$id || "")),
-                    Permission.delete(Role.user(user?.$id || "")),
+                    Permission.read(Role.user(user.$id)),
+                    Permission.update(Role.user(user.$id)),
+                    Permission.delete(Role.user(user.$id)),
                 ]
             )
         } catch (error: any) {
